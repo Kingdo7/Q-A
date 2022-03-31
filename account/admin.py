@@ -17,9 +17,10 @@ class FriendAdmin(admin.ModelAdmin):
     list_display = ['profile', 'friend', 'is_accepted']
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'point', 'bio', 'first_name', 'last_name']
+    list_display = ['user', 'point', 'bio', 'first_name', 'last_name',  'id']
 
-
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = [ 'user', 'point', 'bio', 'first_name', 'last_name', 'id']
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Friend, FriendAdmin)
