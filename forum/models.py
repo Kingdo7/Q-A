@@ -87,7 +87,7 @@ class Answer(models.Model):
             self.slug = slugify(get_random_string(12))
             super(Answer, self).save(*args, **kwargs)
 
-<<<<<<< HEAD
+
 class AnswerVote(models.Model):
 
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="answervote")
@@ -140,7 +140,3 @@ class Question_model(models.Model):
 
 
 
-=======
-    def get_vote_list_count(self):
-        return len(self.votelist.all())
->>>>>>> julie
