@@ -15,7 +15,6 @@ class Profile(models.Model):
 
 
     def __str__(self):
-<<<<<<< HEAD
         return str(self.user) or ""
 
     def get_absolute_url(self):
@@ -27,6 +26,3 @@ class Profile(models.Model):
         else:
             self.slug = slugify(str(self.user) + get_random_string(9))
             super(Profile, self).save(*args, **kwargs)
-=======
-        return str(self.user) or ""
->>>>>>> julie
