@@ -8,15 +8,16 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 # Create your views here.
 from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, TemplateView
 from django.contrib.auth.models import AbstractUser, Group
 
 
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm
 
 from django.contrib.auth.models import AbstractUser, Group
 
-from .models import User
+from .models import User, Profile, Friend
 
 
 from . import forms
@@ -37,7 +38,35 @@ from . import forms
 #
 #    return render(request, 'templates/signup.html', context = {'form' : form})
 class Index(TemplateView):
-    template_name = 'account/home.html'
+    template_name = 'home.html'
+
+
+def FriendSetter(request, *args, **kwargs):
+    priorURL = request.META.get('HTTP_REFERER')
+    qs = Profile.objects.get(id=kwargs['pk'])
+    # cliq sur test 1 profile = test_1
+    #
+    if qs.user not in request.user.friendlist.friend.all():
+        request.user.friendlist.friend.add(qs.user)
+    else:
+        request.user.friendlist.friend.remove(qs.user)
+
+    return redirect(priorURL)
+
+
+def FollowSetter(request, *args, **kwargs):
+    priorURL = request.META.get('HTTP_REFERER')
+    qs = Profile.objects.get(id=kwargs['pk'])
+    # cliq sur test 1 profile = test_1
+    #
+    if qs.user not in request.user.userprofile.friendlist.all():
+        request.user.userprofile.following.add(qs.user)
+        qs.follower.add(request.user)
+    else:
+        request.user.userprofile.following.remove(qs.user)
+        qs.follower.remove(request.user)
+
+    return redirect(priorURL)
 
 
 class UserCreateView(View):
@@ -45,7 +74,7 @@ class UserCreateView(View):
     def get(self, request):
         context = {}
         context['form'] = UserRegistrationForm() # equivaut à context = {'form': UserLoginForm()}
-        return render(request, 'signup.html', context)
+        return render(request, 'account/signup.html', context)
 #template_name=self.html_template
 
     def post(self, request):
@@ -77,12 +106,12 @@ class UserCreateView(View):
             #user.groups.add(group)
             auth.login(request, user)
             return redirect('account:index')
-        return render(request, 'signup.html', context)
+        return render(request, 'account/signup.html', context)
 
 
 
 class UserLoginView(View):
-    html_template = 'account/login.html'
+    html_template = 'login.html'
 
     def get(self, request):
         context = {}
@@ -126,3 +155,66 @@ class UserLogoutView(View):
         else:
             messages.error(request, "vous n'avez pas été déco")
             return redirect('/')
+
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    form_class = ProfileUpdateForm
+    template_name = "account/profile_update.html"
+
+class ProfileDetailsView(DetailView):
+    model = Profile
+    template_name = "account/profile_details.html"
+
+class ProfileListView(ListView):
+    model = Profile
+    template_name = "account/profile_list.html"
+
+class FriendListView(ListView):
+    model = Friend
+    template_name = "account/friend_list.html"
+
+class FriendUpdateView(UpdateView):
+    model = Friend
+    form_class = ProfileUpdateForm
+    template_name = "account/profile_update.html"
+
+class FriendDetailsView(DetailView):
+    model = Friend
+    template_name = "account/profile_details.html"
+
+class FriendCreateView(CreateView):
+    model = Friend
+    template_name = "account/friend_create.html"
+
+def AddFriendRelationship(request, *args,**kwargs):
+    object = Profile.objects.get(pk=kwargs['pk'])
+    friend_recto = Friend.objects.create(
+        profile=request.user.userprofile,
+        friend=object.user,
+    )
+    friend_verso = Friend.objects.create(
+        profile=object,
+        friend=request.user,
+    )
+    object.waitinglist.add(request.user)
+    url = reverse_lazy('account:profile-list')
+    return redirect(url)
+
+
+def RemoveFriendRelationship(request, *args, **kwargs):
+    qs1 = Friend.objects.get(friend=User.objects.get(pk=kwargs['pk']), profile=request.user.userprofile)
+    qs1.delete()
+    qs2 = Friend.objects.get(friend=request.user, profile=User.objects.get(pk=kwargs['pk']).userprofile)
+    qs2.delete()
+    url = reverse_lazy('account:profile-list')
+    return redirect(url)
+
+
+def AcceptedButton(self):
+    # si utilisateur 1 ajoute utilisateur deux
+    # dans la page profile /me de l'utilisateur 2
+    # on doit avoir la liste des gens qui essaye d'ajouter en amis utilsateur 2
+    # je passe les deux relation en accépter is_accepted = True
+    # pop de la liste de l'utilisateur 2 le nom de la personne qu'il accepte
+    pass
