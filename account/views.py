@@ -37,7 +37,7 @@ from . import forms
 #
 #    return render(request, 'templates/signup.html', context = {'form' : form})
 class Index(TemplateView):
-    template_name = 'home.html'
+    template_name = 'account/home.html'
 
 
 def FriendSetter(request, *args, **kwargs):
@@ -73,11 +73,11 @@ class UserCreateView(View):
         context = {}
         context['form'] = UserRegistrationForm()  # equivaut à context = {'form': UserLoginForm()}
 
-        return render(request, 'account/signup.html', context)
+        return render(request, 'account/signin.html', context)
         # template_name=self.html_template
 
         # return render(request, 'account/signin.html', context)
-        return render(request, 'signup.html', context)
+        return render(request, 'account/signin.html', context)
 
     # template_name=self.html_template
     def post(self, request):
@@ -114,11 +114,11 @@ class UserCreateView(View):
     def createProfile(sender, **kwargs):
         print("hello")'''
 
-        return render(request, 'account/signup.html', context)
+        return render(request, 'account/signin.html', context)
 
 
 class UserLoginView(View):
-    html_template = 'login.html'
+    html_template = 'account/login.html'
 
     def get(self, request):
         context = {}
@@ -194,11 +194,6 @@ class ProfileRefreshListView(ListView):
     template_name = "account/profile_list.html"
 
     # juliereturn redirect('/')
-
-
-class FriendListView(ListView):
-    model = Friend
-    template_name = "account/friend_list.html"
 
 
 class FriendUpdateView(UpdateView):

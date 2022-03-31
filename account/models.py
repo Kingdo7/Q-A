@@ -23,10 +23,7 @@ class Profile(models.Model):
         return str(self.user) or ""
 
     def get_absolute_url(self):
-
         return Profile('account:profile-list', kwargs={'slug': self.slug})
-
-        #return Profile('account:profile-detail', kwargs={'slug': self.slug})
 
     def get_follower_list_count(self):
         return len(self.follower.all())
@@ -38,13 +35,8 @@ class Profile(models.Model):
         if self.slug:
             super(Profile, self).save(*args, **kwargs)
         else:
-
-           ''' self.slug = slugify(str(self.user) + get_random_string(9))
-            super(Profile, self).save(*args, **kwargs)'''
-
-            self.slug = slugify(self.titre + get_random_string(9))
+            self.slug = slugify(str(self.user) + get_random_string(9))
             super(Profile, self).save(*args, **kwargs)
-
 
 class Friend(models.Model):
 

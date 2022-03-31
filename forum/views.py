@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from .models import Question_model
 from .forms import CreateQuestion, Details
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
+from .models import Question
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -23,7 +23,7 @@ def Create(request):
 def List(request):
     html_template = "forum/templates/Feed.html"
     context = {}
-    context['dataset'] = Question_model.objects.all()
+    context['dataset'] = Question.objects.all()
 
     return render(request, html_template, context)
 
@@ -31,7 +31,7 @@ def List(request):
 def Details(request, id):
     html_template = "forum/templates/Detail.html"
     context = {}
-    context['data'] = Question_model.objects.get(id=id)
+    context['data'] = Question.objects.get(id=id)
     form = Details(request.POST or None)
     context['form'] = form
     return render(request, html_template, context)
@@ -40,7 +40,7 @@ def Details(request, id):
 def Update(request, id):
     html_template = "forum/templates/Update.html"
     context = {}
-    obj = get_object_or_404(Question_model, id = id)
+    obj = get_object_or_404(Question, id = id)
     form = CreateQuestion(request.POST or None, instance=obj)
 
     if form.is_valid():
@@ -52,7 +52,7 @@ def Update(request, id):
     return render(request, html_template, context)
 
 class C_Question(CreateView):
-    model = Question_model
+    model = Question
     html_template = "forum/templates/Question.html"
 
     def get(self, request, *args, **kwargs):
@@ -70,26 +70,26 @@ class C_Question(CreateView):
         return render(request, self.html_template, context)
 
 class D_Question(DetailView):
-    model = Question_model
+    model = Question
     html_template = "forum/templates/Detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['data'] = Question_model.objects.get(id=id)
+        context['data'] = Question.objects.get(id=id)
         return context
 
 
 class L_Question(ListView):
-    model = Question_model
+    model = Question
     html_template = "forum/templates/Feed.html"
 
     def get(self, request, *args, **kwargs):
         context = {}
-        context['dataset'] = Question_model.objects.all()
+        context['dataset'] = Question.objects.all()
         return render(request, self.html_template, context)
 
 class U_Question(UpdateView) :
-    model = Question_model
+    model = Question
     html_template = "forum/templates/Update.html"
 
     def get(self, request, *args, **kwargs):
