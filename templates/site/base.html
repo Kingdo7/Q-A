@@ -1,5 +1,4 @@
 
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,12 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions & Answers </title>
-
         {% include "site/css.html" %}
 </head>
-{% include "site/navbar.html" %}
 <body>
-
+     {% include "site/navbar.html" %}
+    <h1>hello</h1>
     <div class="mt-5 pt-5">
         {% if messages %}
             {% for message in messages %}
@@ -35,6 +33,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 </html>
