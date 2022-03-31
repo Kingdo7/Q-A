@@ -12,11 +12,11 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, V
 from django.contrib.auth.models import AbstractUser, Group
 
 
-from .forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, UserLoginForm
 
 from django.contrib.auth.models import AbstractUser, Group
 
-from .models import User, Profile
+from .models import User
 
 
 from . import forms
@@ -41,11 +41,13 @@ class Index(TemplateView):
 
 
 class UserCreateView(View):
+
     def get(self, request):
         context = {}
         context['form'] = UserRegistrationForm() # equivaut à context = {'form': UserLoginForm()}
-        return render(request, 'account/signin.html', context)
+        return render(request, 'signup.html', context)
 #template_name=self.html_template
+
     def post(self, request):
         context = {}
         context['form'] = UserRegistrationForm()
@@ -75,9 +77,7 @@ class UserCreateView(View):
             #user.groups.add(group)
             auth.login(request, user)
             return redirect('account:index')
-        return render(request, 'account/signin.html', context)
-    def createProfile(sender, **kwargs):
-        print("hello")
+        return render(request, 'signup.html', context)
 
 
 
@@ -126,30 +126,3 @@ class UserLogoutView(View):
         else:
             messages.error(request, "vous n'avez pas été déco")
             return redirect('/')
-
-
-class ProfileUpdateView(UpdateView):
-    model = Profile
-    form_class = ProfileUpdateForm
-    template_name = "account/profile_update.html"
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-class ProfileDetailsView(DetailView):
-    model = Profile
-    template_name = "account/profile_details.html"
-
-class ProfileListView(ListView):
-    model = Profile
-    template_name = "account/profile_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['profile'] = Profile.objects.all()
-        return context
-
-class ProfileRefreshListView(ListView):
-    model = Profile
-    template_name = "account/profile_list.html"
