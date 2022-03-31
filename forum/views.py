@@ -8,7 +8,7 @@ from django.contrib import messages
 
 # Create your views here.
 def Create(request):
-    html_template = "forum/templates/Question.html"
+    html_template = "Question.html"
     context = {}
     form = CreateQuestion(request.POST or None)
     if form.is_valid():
@@ -21,7 +21,7 @@ def Create(request):
 
 
 def List(request):
-    html_template = "forum/templates/Feed.html"
+    html_template = "Feed.html"
     context = {}
     context['dataset'] = Question.objects.all()
 
@@ -29,7 +29,7 @@ def List(request):
 
 
 def Details(request, id):
-    html_template = "forum/templates/Detail.html"
+    html_template = "Detail.html"
     context = {}
     context['data'] = Question.objects.get(id=id)
     form = Details(request.POST or None)
@@ -38,7 +38,7 @@ def Details(request, id):
 
 
 def Update(request, id):
-    html_template = "forum/templates/Update.html"
+    html_template = "Update.html"
     context = {}
     obj = get_object_or_404(Question, id = id)
     form = CreateQuestion(request.POST or None, instance=obj)
@@ -53,7 +53,7 @@ def Update(request, id):
 
 class C_Question(CreateView):
     model = Question
-    html_template = "forum/templates/Question.html"
+    html_template = "Question.html"
 
     def get(self, request, *args, **kwargs):
         context = {}
@@ -71,7 +71,7 @@ class C_Question(CreateView):
 
 class D_Question(DetailView):
     model = Question
-    html_template = "forum/templates/Detail.html"
+    html_template = "Detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,7 +81,7 @@ class D_Question(DetailView):
 
 class L_Question(ListView):
     model = Question
-    html_template = "forum/templates/Feed.html"
+    html_template = "Feed.html"
 
     def get(self, request, *args, **kwargs):
         context = {}
@@ -90,7 +90,7 @@ class L_Question(ListView):
 
 class U_Question(UpdateView) :
     model = Question
-    html_template = "forum/templates/Update.html"
+    html_template = "Update.html"
 
     def get(self, request, *args, **kwargs):
         context = {}

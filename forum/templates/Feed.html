@@ -1,3 +1,5 @@
+{% extends "site/base.html" %}
+
 
 {% load crispy_forms_tags %}
 
@@ -8,12 +10,12 @@
 <a href="{% url 'forum:Question' %} "> Vous avez une question ? </a>
 <br>
 <br>
-{% block container %}
+{% block content %}
 
     <div class="container" >
             {% for data in dataset %}
                 <a href="{% url 'forum:details' id=data.id %}">
-                    {% include 'forum/templates/question_affichage.html' %}
+                    {% include 'question_affichage.html' %}
                 </a>
             {% endfor %}
     </div>
