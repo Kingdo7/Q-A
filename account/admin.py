@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+<<<<<<< HEAD
 from .models import Profile, User
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -9,3 +10,5 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile, ProfileAdmin)
 
+=======
+>>>>>>> julie

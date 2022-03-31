@@ -12,11 +12,11 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, V
 from django.contrib.auth.models import AbstractUser, Group
 
 
-from .forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, UserLoginForm
 
 from django.contrib.auth.models import AbstractUser, Group
 
-from .models import User, Profile
+from .models import User
 
 
 from . import forms
@@ -44,7 +44,11 @@ class UserCreateView(View):
     def get(self, request):
         context = {}
         context['form'] = UserRegistrationForm() # equivaut à context = {'form': UserLoginForm()}
+<<<<<<< HEAD
         return render(request, 'account/signin.html', context)
+=======
+        return render(request, 'signup.html', context)
+>>>>>>> julie
 #template_name=self.html_template
     def post(self, request):
         context = {}
@@ -75,9 +79,13 @@ class UserCreateView(View):
             #user.groups.add(group)
             auth.login(request, user)
             return redirect('account:index')
+<<<<<<< HEAD
         return render(request, 'account/signin.html', context)
     def createProfile(sender, **kwargs):
         print("hello")
+=======
+        return render(request, 'signup.html', context)
+>>>>>>> julie
 
 
 
@@ -125,6 +133,7 @@ class UserLogoutView(View):
             return redirect('/')
         else:
             messages.error(request, "vous n'avez pas été déco")
+<<<<<<< HEAD
             return redirect('/')
 
 
@@ -153,3 +162,6 @@ class ProfileListView(ListView):
 class ProfileRefreshListView(ListView):
     model = Profile
     template_name = "account/profile_list.html"
+=======
+            return redirect('/')
+>>>>>>> julie
