@@ -43,6 +43,7 @@ class Question(models.Model):
     #liked = models.ManyToManyField(User)
     slug = models.SlugField(null=True, blank=True)
 
+
     def __str__(self):
         return str(self.title) or ""
 

@@ -9,7 +9,6 @@ from .views import (
     Index,
     ProfileUpdateView,
     ProfileListView,
-    FriendListView,
     ProfileDetailsView,
     FollowSetter,
 
@@ -30,7 +29,6 @@ urlpatterns = [
     path('auth/profile/<int:pk>/update/', ProfileUpdateView.as_view(), name = "profile-update"),
     path('auth/profile/<int:pk>/details/', ProfileDetailsView.as_view(), name = "profile-details"),
 
-    path('auth/friend/list/', FriendListView.as_view(), name = "friend-list"),
     path('auth/profile/list/', ProfileListView.as_view(), name = "profile-list"),
     path('auth/register/', UserCreateView.as_view(), name = "register"),
     path('auth/login/', UserLoginView.as_view(), name="signup"),
