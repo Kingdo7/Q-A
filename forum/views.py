@@ -6,6 +6,7 @@ from .models import Question
 from django.urls import reverse_lazy
 from django.contrib import messages
 
+
 # Create your views here.
 def Create(request):
     html_template = "forum/templates/Question.html"
@@ -40,7 +41,7 @@ def Details(request, id):
 def Update(request, id):
     html_template = "forum/templates/Update.html"
     context = {}
-    obj = get_object_or_404(Question, id = id)
+    obj = get_object_or_404(Question, id=id)
     form = CreateQuestion(request.POST or None, instance=obj)
 
     if form.is_valid():
@@ -50,6 +51,7 @@ def Update(request, id):
     context['form'] = form
 
     return render(request, html_template, context)
+
 
 class C_Question(CreateView):
     model = Question
@@ -68,6 +70,7 @@ class C_Question(CreateView):
             return HttpResponseRedirect("/")
         context['form'] = form
         return render(request, self.html_template, context)
+
 
 class D_Question(DetailView):
     model = Question
@@ -88,7 +91,8 @@ class L_Question(ListView):
         context['dataset'] = Question.objects.all()
         return render(request, self.html_template, context)
 
-class U_Question(UpdateView) :
+
+class U_Question(UpdateView):
     model = Question
     html_template = "forum/templates/Update.html"
 
@@ -105,4 +109,3 @@ class U_Question(UpdateView) :
             return HttpResponseRedirect('/')
         context['form'] = form
         return render(request, self.html_template, context)
-
