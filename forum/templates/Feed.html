@@ -5,16 +5,12 @@
 
 {% load static %}
 
-<H4> Questions </H4>
 
-<a href="{% url 'forum:Question' %} "> Vous avez une question ? </a>
-<br>
-<br>
 {% block content %}
 
     <div class="container" >
             {% for data in dataset %}
-                <a href="{% url 'forum:details' id=data.id %}">
+                <a href="{% url 'forum:details' data.id %}">
                     {% include 'question_affichage.html' %}
                 </a>
             {% endfor %}

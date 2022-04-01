@@ -1,15 +1,15 @@
 from django.forms import ModelForm
-from .models import Question
+from .models import QuestionModel
 
 
 class CreateQuestion(ModelForm):
     class Meta:
-        model = Question
-        fields = ['title']  #, 'question'
+        model = QuestionModel
+        fields = ['titre', 'question']  
 
-
-class Details(ModelForm):
+class DetailsQuestion(ModelForm):
     class Meta:
-        model = Question
-        fields = ['title']
-        #fields = ['answer']
+        model = QuestionModel
+        fields = ['reponse']
+
+
