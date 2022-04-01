@@ -69,6 +69,9 @@ class Question(models.Model):
     def get_vote_list_count(self):
         return len(self.votelist.all())
 
+
+
+
 #class QuestionVote(models.Model):
 #    answer = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="questionvote")
 #    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="userquestionvote")
@@ -91,7 +94,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
 
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="questionanswer")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name="questionanswer")
     #profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="useranswer")
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteuranswer')
     answer = models.CharField(max_length=2000)

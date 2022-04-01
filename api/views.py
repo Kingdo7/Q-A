@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import  TagModelSerializer, QuestionModelSerializer, AnswerModelSerializer, AddVoteQuestionSerialiser, AddVoteAnswerSerialiser, QuestionListVoteSerialiser, AnswerListVoteSerialiser, ProfileModelSerializer
+from .serializers import  TagModelSerializer, QuestionModelSerializer, AnswerModelSerializer, AddVoteQuestionSerialiser, AddVoteAnswerSerialiser, QuestionListVoteSerialiser, AnswerListVoteSerialiser, ProfileModelSerializer, ProfileModelDetailSerializer
 from rest_framework.views import APIView
 from forum.models import Question, Answer, Tag
 from account.models import  Profile
@@ -59,30 +59,35 @@ class HelloView(APIView):
 class QuestionListAPI(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionModelSerializer
-
+    permission_classes = [IsAuthenticated]
 # Enelver le null dans models pour question. Ca va faire un problme not nullc onstraint mais c'ets normal car il faut récupérer via token, l'id de user et faire l'ajout quand une quesiton est crée.
+
 class QuestionCreateAPI(CreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionModelSerializer
 
     def perform_create(self, serializer):
-        serializer.save(profile=self.request.user.objects.all())
+        #Récupérer le request user puis al jointure avec profile
+        serializer.save(author=self.request.user.userprofile)
+
 
 # A Faire et modifier pour la prochaine fois
 class QuestionDetailAPI(RetrieveAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionModelSerializer
+    permission_classes = [IsAuthenticated]
 
 class QuestionUpdateAPI(UpdateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionModelSerializer
-
+    permission_classes = [IsAuthenticated]
 
 
 #Answer
 class QuestionAnswersListAPI(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = AnswerModelSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Answer.objects.filter(question__id=self.kwargs['pk'])
@@ -96,7 +101,10 @@ class AnswerCreateAPI(CreateAPIView):
     serializer_class = AnswerModelSerializer
 
     def perform_create(self, serializer):
-        serializer.save(profile=self.request.user.objects.all())
+        #Récupérer le request user puis al jointure avec profile
+        serializer.save(author=self.request.user.userprofile)
+#validated  def create.
+
 
 
 class AnswerDetailAPI(RetrieveAPIView):
@@ -104,6 +112,8 @@ class AnswerDetailAPI(RetrieveAPIView):
     serializer_class = AnswerModelSerializer
 
 #Vote à améliorer  en fonction de l'utilisateur qui se connecte et utilise le token
+
+
 
 
 
@@ -115,10 +125,10 @@ class AddVoteQuestionAPI(UpdateAPIView):
 
     def perform_update(self, serializer):
         qs = self.get_object()
-        if self.request.user in qs.votelist.all():
-            qs.votelist.remove(self.request.user)
+        if self.request.user.userprofile in qs.votelist.all():
+            qs.votelist.remove(self.request.user.userprofile)
         else:
-            qs.votelist.add(self.request.user)
+            qs.votelist.add(self.request.user.userprofile)
         serializer.save()
 
 
@@ -130,10 +140,10 @@ class AddVoteAnswerAPI(UpdateAPIView):
 
     def perform_update(self, serializer):
         qs = self.get_object()
-        if self.request.user in qs.votelist.all():
-            qs.votelist.remove(self.request.user)
+        if self.request.user.userprofile in qs.votelist.all():
+            qs.votelist.remove(self.request.user.userprofile)
         else:
-            qs.votelist.add(self.request.user)
+            qs.votelist.add(self.request.user.userprofile)
         serializer.save()
 
 
@@ -164,3 +174,12 @@ class ProfileDetailAPI(RetrieveAPIView):
 class ProfileUpdateAPI(UpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileModelSerializer
+
+
+class ProfileDetailConnected(ListAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileModelDetailSerializer
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
+

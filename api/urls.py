@@ -18,7 +18,7 @@ from .views import (
     ProfileListAPI,
     ProfileDetailAPI,
     ProfileUpdateAPI,
-    #ProfileDetailConnected,
+    ProfileDetailConnected,
 
 )
 #    QuestionListVoteAPI,
@@ -60,7 +60,7 @@ urlpatterns = [
     path('profiles/', ProfileListAPI.as_view(), name="profile-list"),
     path('profiles/<int:pk>/', ProfileDetailAPI.as_view(), name="profile-get"),
     path('profiles/<int:pk>/update/', ProfileUpdateAPI.as_view(), name="profile-update"),
-    #path('me/', ProfileDetailConnected.as_view(), name="profile-connected"),
+    path('me/', ProfileDetailConnected.as_view(), name="profile-connected"),
 
 
 

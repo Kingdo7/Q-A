@@ -17,24 +17,35 @@ class TagModelSerializer(ModelSerializer):
         model = Tag
         fields = ['title']
 
+
+
 class ProfileModelSerializer(ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'point', 'bio', ]
+        fields = ['first_name', 'last_name', 'point', 'bio' ]
 
         def create(self, validated_data):
             return Question.objects.create(**validated_data)
 
 
+
+class ProfileModelDetailSerializer(ModelSerializer):
+    nom_user = serializers.CharField(source="user", read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['nom_user', 'point', 'bio', 'first_name', 'last_name' ]
+
+
+
+
 class QuestionModelSerializer(serializers.ModelSerializer):
     tag = TagModelSerializer()
 
+
     class Meta:
         model = Question
-        fields = ['title', 'content', 'tag']
+        fields = ['title', 'content', 'tag', 'author']
         extra_kwargs = {'tag': {'required': True}}
-
-
 
     def create(self, validated_data):
         tag = validated_data.pop('tag')
@@ -43,11 +54,13 @@ class QuestionModelSerializer(serializers.ModelSerializer):
         except:
             tag = Tag.objects.create(title=tag['title'])
         return Question.objects.create(
-            tag=tag, **validated_data  # will set other fields that were passed.
+            **validated_data ,  tag=tag, # will set other fields that were passed.
         )
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
+        instance.tag = validated_data.get('tag', tag)
         instance.save()
         return instance
 
@@ -55,26 +68,31 @@ class QuestionModelSerializer(serializers.ModelSerializer):
 
 
 class AnswerModelSerializer(ModelSerializer):
-    question = serializers.CharField(source="question.title", read_only=True)
+    #question = serializers.CharField(source="question.title", read_only=True)
+    question = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     date_creation = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
-    profile_answer = serializers.CharField(source="profile", read_only=True)
+    #profile_answer = serializers.CharField(source="profile", read_only=True)
 
     class Meta:
         model = Answer
-        fields = ['profile_answer', 'answer', 'date_creation', 'question']
+        fields = ['author', 'answer', 'date_creation', 'question']
+        extra_kwargs = {'question': {'required': True}}
 
     def create(self, validated_data):
         return Answer.objects.create(**validated_data)
 
+#dans validated data user = user;SELf.user
+
+
 
 class AddVoteQuestionSerialiser(ModelSerializer):
     vote_questionlister = serializers.SerializerMethodField(source=Question)
+
     class Meta:
         model = Question
         fields = ['vote_questionlister']
 
-    def get_votelister(self, obj):
-        return obj.get_vote_list_count()
+
 
 class AddVoteAnswerSerialiser(ModelSerializer):
     vote_answerslister = serializers.SerializerMethodField(source=Answer)
@@ -83,8 +101,7 @@ class AddVoteAnswerSerialiser(ModelSerializer):
         model = Answer
         fields = ['vote_answerslister']
 
-    def get_votelister(self, obj):
-        return obj.get_vote_list_count()
+
 
 
 #ListVotesAnswerSerializer
