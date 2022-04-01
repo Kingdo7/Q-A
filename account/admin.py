@@ -13,15 +13,11 @@ admin.site.register(Profile, ProfileAdmin)
 '''
 from .models import Profile, Friend
 
-class FriendAdmin(admin.ModelAdmin):
-    list_display = ['profile', 'friend', 'is_accepted']
-
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'point', 'bio', 'first_name', 'last_name',  'id']
 
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = [ 'user', 'point', 'bio', 'first_name', 'last_name', 'id']
-
+class FriendAdmin(admin.ModelAdmin):
+    list_display = ['friend', 'is_accepted']
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Friend, FriendAdmin)
 
