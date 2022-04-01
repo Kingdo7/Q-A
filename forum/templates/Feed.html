@@ -12,7 +12,7 @@
 
     <div class="container" >
             {% for data in dataset %}
-                <a href="{% url 'forum:details' id=data.id %}">
+                <a href="{% url 'forum:details' data.pk %}">
                     {% include 'forum/templates/question_affichage.html' %}
                 </a>
             {% endfor %}
