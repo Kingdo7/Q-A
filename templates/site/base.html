@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions & Answers </title>
+    <script src="https://kit.fontawesome.com/0da4233e0b.js" crossorigin="anonymous"></script>
         {% include "site/css.html" %}
 </head>
 <body>
@@ -20,6 +21,8 @@
             {% include "site/aside.html" %}
 
     </div>
+        {% include "site/footer.html" %}
+
     <div class=" pt-5">
         {% if messages %}
             {% for message in messages %}
@@ -31,7 +34,7 @@
             </div>
             {% endfor %}
         {% endif %}
-
+    </div>
        <!-- <div class="row">
             <div class="col-10">
 
