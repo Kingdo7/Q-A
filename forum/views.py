@@ -7,6 +7,15 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 
 
+# Create your views here.
+def Create(request):
+    html_template = "forum/templates/Question.html"
+    context = {}
+    form = CreateQuestion(request.POST or None)
+    if form.is_valid():
+        form.save()
+
+
 #class QuestionListView(ListView):
 #    model = Question
 #   template_name = "Feed.html"
@@ -34,12 +43,14 @@ from django.contrib import messages
 def create(request):
     html_template = "Question.html"
     context = {}
-    form = CreateQuestion(request.POST or None)
+    obj = get_object_or_404(Question, id=id)
+    form = CreateQuestion(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect("/")
     context['form'] = form
     return render(request, html_template, context)
+
 
 def list(request):
     html_template = "Feed.html"
@@ -56,6 +67,16 @@ def details(request, pk):
     return render(request, html_template, context)
 
 
+    def post(self, request, *args, **kwargs):
+        context = {}
+        form = Update(request.POST or None, id)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        context['form'] = form
+        return render(request, self.html_template, context)
+
+
 #def Update(request, pk):
     #html_template = "Update.html"
     #context = {}
@@ -66,3 +87,4 @@ def details(request, pk):
         #return HttpResponseRedirect("/" + id)
     #context['form'] = form
     #return render(request, html_template, context)
+
