@@ -6,12 +6,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions & Answers </title>
+    <script src="https://kit.fontawesome.com/0da4233e0b.js" crossorigin="anonymous"></script>
         {% include "site/css.html" %}
 </head>
 <body>
-     {% include "site/navbar.html" %}
-    <h1>hello</h1>
-    <div class="mt-5 pt-5">
+
+    {% include "site/navbar.html" %}
+    <div class="main">
+
+            {% include "site/sidebar.html" %}
+
+            {% block content %}
+            {% endblock content %}
+
+            {% include "site/aside.html" %}
+
+    </div>
+        {% include "site/footer.html" %}
+
+    <div class=" pt-5">
+
         {% if messages %}
             {% for message in messages %}
             <div class="{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -22,18 +36,67 @@
             </div>
             {% endfor %}
         {% endif %}
-
-        <div class="row">
+    </div>
+       <!-- <div class="row">
             <div class="col-10">
-            {% block content %}
-            {% endblock content %}
+
             </div>
             <div class="col-2">
-                {% include "site/sidebar.html" %}
+
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 </body>
+<script>
+
+let cards = document.querySelectorAll('.card');
+    for (let i = 0; i < cards.length; i++) {
+      let card = cards[i];
+      let cardToggle = function () {
+        setTimeout(() => {
+            this.classList.add('active');
+        }, 600);
+      };
+      card.addEventListener('mouseenter', cardToggle);
+    };
+
+let cardsAnswered = document.querySelectorAll('.card');
+    for (let i = 0; i < cardsAnswered.length; i++) {
+      let cardAns = cardsAnswered[i];
+      let cardAnswer = function () {
+        setTimeout(() => {
+            this.classList.remove('active');
+        }, 600);
+      };
+      cardAns.addEventListener('mouseleave', cardAnswer);
+    };
+
+
+let logs = document.querySelectorAll('.account');
+for (let i = 0; i < logs.length; i++) {
+    let log = logs[i];
+    let logsToggle = function () {
+    this.classList.toggle('active_logs');
+    };
+    log.addEventListener('click', logsToggle);
+};
+
+let otherTargetDiv = document.querySelector(".second");
+let targetDiv = document.querySelector(".first");
+let bttn = document.getElementById("toggler");
+let btn = document.getElementById("toggle");
+
+btn.onclick = function () {
+    targetDiv.style.display = "flex";
+    otherTargetDiv.style.display = "none";
+}
+bttn.onclick = function () {
+
+      otherTargetDiv.style.display = "flex";
+      targetDiv.style.display = "none";
+  };
+
+</script>
 </html>
