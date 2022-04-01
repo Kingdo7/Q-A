@@ -10,6 +10,11 @@
 </head>
 <body>
     {% include "site/navbar.html" %}
+    <div class="main">
+
+            {% include "site/sidebar.html" %}
+        
+    </div>
     <div class=" pt-5">
         {% if messages %}
             {% for message in messages %}
