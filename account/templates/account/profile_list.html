@@ -5,25 +5,20 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Liste des profiles</h1>
+<h1 class="profile_title">Liste des profiles</h1>
 
-<<<<<<< HEAD
-    <div style="height:50vh; width:100%; margin-top: 30vh; " class="row">
-=======
-    <div class="row m-5">
+
+    <div style="height:50vh; width:100%; margin-top: 30vh; " class="row dflexp">
         {% if request.user == object.author %}
             <a href="{% url 'account:profile-details' pk=user.pk %}" class="btn btn-primary">consulter</a>
         {% endif %}
-        
->>>>>>> be7b6c8e11f5090f92bd18ebfa3d48e4ab8f6004
+
         {% for each in object_list %}
             {% if each.user != request.user %}
 
-<<<<<<< HEAD
-            <div style="height:100%; width:100%;" class="p-3">
-=======
-                <div class="col-3 p-3">
->>>>>>> be7b6c8e11f5090f92bd18ebfa3d48e4ab8f6004
+
+            <div style="height:100%; width:30%;" class=" profile_list p-3">
+
 
                     <div class="card">
                         {% if each.image %}

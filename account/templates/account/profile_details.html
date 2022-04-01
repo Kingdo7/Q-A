@@ -6,8 +6,8 @@
 
 {% block content %}
 
-<div class="row m-5">
-    <div class="col-8">
+<div style="height:50vh; width:100%; margin-top: 30vh; " class="row dflexp">
+    <div style="height:100%; width:30%;" class="profile_list">
         <div class="card">
             {% if each.image %}
                 <img class="card-img-top" src="{{ object.image.url }}" alt="image">
@@ -16,10 +16,10 @@
             {% endif %}
 
             <div class="card-body">
-                    <h1 class=""><strong>{{object.user}}</strong></h1>
-                    <h2> <strong>{{ object.first_name }}</strong></h2>
-                    <h2> <strong>{{ object.last_name }}</strong></h2>
-                    <p>{{ object.bio }}</p>
+                    <h4 class=""><strong>{{object.user}}</strong></h4>
+                    <h2 style="color: black;"> <strong>{{ object.first_name }}</strong></h2>
+                    <h2 style="color: black;"> <strong>{{ object.last_name }}</strong></h2>
+                    <p style="color: black;" >{{ object.bio }}</p>
 
                     <div class="card-footer">
                         <a class="btn btn-danger" href="{% url 'account:profile-list' %}">Retour</a>
