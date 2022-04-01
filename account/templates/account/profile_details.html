@@ -26,7 +26,7 @@
                         {% if request.user == object.author %}
                             <a class="btn btn-info" href="{% url 'account:profile-update' slug=object.slug %}">Edition</a>
                         {% else %}
-                        <a class="btn btn-secondary" href="">Edition</a>
+                            <a class="btn btn-secondary" href="">Edition</a>
                         {% endif %}
                     </div>
             </div>
