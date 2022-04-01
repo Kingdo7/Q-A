@@ -8,6 +8,10 @@
 <h1>Liste des profiles</h1>
 
     <div class="row m-5">
+        {% if request.user == object.author %}
+            <a href="{% url 'account:profile-details' pk=user.pk %}" class="btn btn-primary">consulter</a>
+        {% endif %}
+        
         {% for each in object_list %}
             {% if each.user != request.user %}
 
