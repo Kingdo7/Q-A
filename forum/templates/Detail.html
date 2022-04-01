@@ -1,4 +1,17 @@
+{% extends "site/base.html" %}
 
-{% block contain %}
-    this id is {{ data.id }}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <h2> Details des questions </h2>
+    <div
+    {% for data in dataset %}
+        {{ data.titre}}
+        {{ data.description }}
+    {% endfor %}
+
+
 {% endblock %}

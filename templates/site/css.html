@@ -13,31 +13,157 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-    html,
-    body,
-    header,
-    .carousel {
-      height: 60vh;
+    *,*:before,*:after {
+        box-sizing: border-box;
+        list-style-type: none;
+        text-decoration: none;
     }
+    section{
+    height: 70px;
+    width:100%;
+    background-color: white;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.7);
+    z-index: 100;
 
-    @media (max-width: 740px) {
-
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
     }
+    section img{
+        height: 50px;
+    }
+    .logo{
+        display: flex;
+        justify-content: flex-end;
+        width: 15%;
+        height: 100%;
+        object-fit: contain;
+        position: relative;
+    }
+    .logo img{
+        height: 60px;
+        position: absolute;
+        top: 5px;
+    }
+    .menu{
+        width:30%;
+        font-size: 20px;
+    }
+    .searchbar{
+        width: 30%;
+        height: 100%;
+        position: relative;
+        margin-right: 80px;
+    }
+    h5{
+        padding: 8px 0 2px 0;
+        font-size: 18px;
+    }
+    .searchbar input{
+        width: 100%;
+        margin-top: 10px;
+        height: 65%;
+        border-radius: 3px;
+        background-color: rgba(255, 255, 255,.1);
+        border: none;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
+    }
+    .searchbar input::placeholder{
+        padding-left: 10%;
+        font-size: 20px;
+        font-weight: 900;
+        color: rgba(0, 0, 0,.3);
+    }
+    .searchbar button{
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        background: none !important;
+        height: 65%;
+        width: 55px;
+        border-radius: 3px;
+        border: none;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 
-    @media (min-width: 800px) and (max-width: 850px) {
+    }
+    .menu ul{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin: 0;
+    }
+    .menu li a{
+        font-weight: 600;
+        color: #0f0007 !important;
+        text-shadow: 0 1px 1px rgb(240, 84, 79);
+        opacity: .6;
+        transition: all ease-in-out .3s;
+    }
+    .menu li a:hover{
+        opacity: 1;
+        font-weight: 700;
+    }
+    .avatar{
+        border: 3px solid #f0544f;
+        border-radius: 50%;
+        position: relative;
+        height: 56px;
+        width: 56px;
+    }
+    .account{
+     height: 56px;
+     width: 56px;
+     overflow: hidden;
+     position: absolute;
+        bottom: 10px;
+        right: 90px;
+    }
+    .account.active_logs{
+        height: auto;
+        width: auto;
+        position: absolute;
+        bottom: -138px;
+        right: -10px;
 
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
+    }
+    .account ul{
+        background-color: rgba(240, 84, 79, .9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 !important;
+        border-radius: 3px;
+    }
+    .account ul li{
+        padding: 10px 32px;
+        width: 100%;
+        border-radius: 3px;
+        transition: background-color ease-in-out .5s;
+    }
+    .account ul li:hover{
+        background-color: rgb(109, 104, 117);
+    }
+    .avatar svg{
+        font-size: 12px;
+        position:absolute;
+        top: 28px;
+        right: -6px;
+        transition: transform ease-in-out .5s
+    }
+    .account.account.active_logs .avatar svg{
+        transform: rotate(180deg);
+    }
+    h1 {
+      margin:80px 0 10px 0;
+      font-size: 52px;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 0px rgb(240, 84, 79),
+        2px 2px 0px rgb(240, 84, 79),
+        3px 3px 0px rgb(240, 84, 79),
+        4px 4px 0px rgb(240, 84, 79);
     }
     *,*:before,*:after {
 	box-sizing: border-box;
@@ -989,4 +1115,15 @@ form label{
       display:flex;
   }
 
+
+    body {
+        background: rgb(255, 250, 255) !important;
+        color: black;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        line-height:1.4;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+    }
 </style>

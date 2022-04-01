@@ -9,6 +9,7 @@
         {% include "site/css.html" %}
 </head>
 <body>
+
     {% include "site/navbar.html" %}
     <div class="main">
 
@@ -21,6 +22,7 @@
 
     </div>
     <div class=" pt-5">
+
         {% if messages %}
             {% for message in messages %}
             <div class="{{ message.tags }} alert-dismissible fade show" role="alert">
