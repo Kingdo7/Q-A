@@ -52,6 +52,7 @@ def details(request, pk):
     html_template = "Detail.html"
     context = {}
     context['data'] = QuestionModel.objects.get(id=pk)
+    print(QuestionModel.objects.all())
     return render(request, html_template, context)
 
 
