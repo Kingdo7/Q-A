@@ -8,7 +8,8 @@ from api.urls import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls', namespace='api')),
-    path('', include('account.urls', namespace='account')),
+    path('account/', include('account.urls', namespace='account')),
+    path('', include('forum.urls', namespace="forum")),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
