@@ -117,3 +117,20 @@ class Answer(models.Model):
 
     def get_vote_list_count(self):
         return len(self.votelist.all())
+
+class QuestionModel(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='Author')
+    titre = models.CharField(max_length=50)
+    question = models.TextField()
+    reponse = models.TextField()
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    #tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
+    #visit_counter = models.PositiveIntegerField(default=0)
+    #liked = models.ManyToManyField(User)
+    
+    class Meta :
+        ordering = ['updated', 'created']
+        
+    def __str__(self):
+        return self.titre
