@@ -12,7 +12,7 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'date_creation']
 
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ['answer', 'date_creation', 'id', 'question', 'profile', 'id']
+    list_display = ['answer', 'date_creation', 'id', 'question', 'author', 'id']
 
 #class ProfileAdmin(admin.ModelAdmin):
 #    list_display = [ 'user', 'point', 'bio', 'first_name', 'last_name', 'id']

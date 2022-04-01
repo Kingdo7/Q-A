@@ -13,10 +13,8 @@
 {% block content %}
 
     <div class="container" >
-            {% for data in dataset %}
-                <a href="{% url 'forum:details' id=data.id %}">
-                    {% include 'question_affichage.html' %}
-                </a>
+            {% for data in Feed %}
+                          <a class="btn btn-primary" href="{% url 'forum:question-detail' slug=data.slug %}">Lire Plus</a>
             {% endfor %}
     </div>
 

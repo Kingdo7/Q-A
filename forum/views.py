@@ -2,9 +2,33 @@ from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .forms import CreateQuestion, Details
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
-from .models import Question
+from .models import Question, Answer
 from django.urls import reverse_lazy
 from django.contrib import messages
+
+
+class QuestionListView(ListView):
+    model = Question
+    template_name = "Feed.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['Feed'] = Question.objects.all()
+        return context
+
+class QuestionDetailView(DetailView):
+    model = Question
+    template_name = "Detail.html"
+
+    def get_context_data(self, **kwargs):
+        #pas comprendre la ligne suivante , juste copier coller.
+        context = super().get_context_data(**kwargs)
+        context['reponse'] = Answer.objects.filter(question__id=self.get_object().id)
+
+        return context
+
+
+
+
 
 # Create your views here.
 def Create(request):
@@ -28,13 +52,13 @@ def List(request):
     return render(request, html_template, context)
 
 
-def Details(request, id):
-    html_template = "Detail.html"
-    context = {}
-    context['data'] = Question.objects.get(id=id)
-    form = Details(request.POST or None)
-    context['form'] = form
-    return render(request, html_template, context)
+#def Details(request, id):
+#    html_template = "Detail.html"
+#    context = {}
+#    context['data'] = Question.objects.get(id=id)
+#    form = Details(request.POST or None)
+#    context['form'] = form
+#    return render(request, html_template, context)
 
 
 def Update(request, id):

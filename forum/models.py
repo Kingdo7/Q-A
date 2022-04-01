@@ -35,7 +35,7 @@ class Tag(models.Model):
 class Question(models.Model):
 
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteur')
-    tag = models.ManyToManyField(Tag)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
     #profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteur')
     #tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
 
@@ -51,10 +51,13 @@ class Question(models.Model):
         return str(self.title) or ""
 
 
+    #def get_absolute_url(self):
+    #    return reverse('account:account-detail',
+    #                   kwargs={'pk': self.pk}
+    #                   )
+
     def get_absolute_url(self):
-        return reverse('account:account-detail',
-                       kwargs={'pk': self.pk}
-                       )
+        return reverse('question:question-detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if self.slug:
@@ -88,14 +91,16 @@ class Question(models.Model):
 
 class Answer(models.Model):
 
-    question = models.OneToOneField(Question, on_delete=models.CASCADE, related_name="questionanswer")
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="useranswer")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="questionanswer")
+    #profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="useranswer")
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteuranswer')
     answer = models.CharField(max_length=2000)
     date_creation = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=True, blank=True)
     votelist = models.ManyToManyField(Profile, blank=True, related_name="voteanswerslist")
+
     def __str__(self):
-        return str(self.profile) or ""
+        return str(self.author) or ""
 
     def get_absolute_url(self):
         return reverse('forum:answer-detail',
@@ -110,4 +115,5 @@ class Answer(models.Model):
             self.slug = slugify(get_random_string(12))
             super(Answer, self).save(*args, **kwargs)
 
-
+    def get_vote_list_count(self):
+        return len(self.votelist.all())
