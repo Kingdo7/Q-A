@@ -193,8 +193,6 @@ class ProfileRefreshListView(ListView):
     model = Profile
     template_name = "account/profile_list.html"
 
-    # juliereturn redirect('/')
-
 
 class FriendUpdateView(UpdateView):
     model = Friend
