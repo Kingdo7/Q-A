@@ -12,8 +12,6 @@ class TagAdmin(admin.ModelAdmin):
 
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ['answer', 'date_creation', 'id', 'question', 'profile', 'id']
-
-
 #class QuestionVoteAdmin(admin.ModelAdmin):
 #    list_display = ['question', 'profile', 'date_creation']
 
@@ -23,7 +21,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Tag, TagAdmin )
-admin.site.register(Answer, AnswerAdmin )
+admin.site.register(Answer, AnswerAdmin)
 
 
 
