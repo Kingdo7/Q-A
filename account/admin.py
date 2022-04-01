@@ -1,14 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-<<<<<<< HEAD
 from .models import Profile, User
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'slug']
+    list_display = ['first_name', 'id']
 
 
 admin.site.register(Profile, ProfileAdmin)
 
-=======
->>>>>>> julie
+

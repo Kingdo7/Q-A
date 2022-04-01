@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.crypto import get_random_string
+#Permet d'avoir dans article en admin, de mettre du contenu en mode word/html
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -15,7 +18,6 @@ class Profile(models.Model):
 
 
     def __str__(self):
-<<<<<<< HEAD
         return str(self.user) or ""
 
     def get_absolute_url(self):
@@ -27,6 +29,4 @@ class Profile(models.Model):
         else:
             self.slug = slugify(str(self.user) + get_random_string(9))
             super(Profile, self).save(*args, **kwargs)
-=======
-        return str(self.user) or ""
->>>>>>> julie
+

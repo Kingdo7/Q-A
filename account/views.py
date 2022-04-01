@@ -16,7 +16,7 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 from django.contrib.auth.models import AbstractUser, Group
 
-from .models import User
+from .models import User, Profile
 
 
 from . import forms
@@ -36,6 +36,7 @@ from . import forms
 #            return redirect(setting.LOGIN_REDIRECT_URL)
 #
 #    return render(request, 'templates/signup.html', context = {'form' : form})
+
 class Index(TemplateView):
     template_name = 'account/home.html'
 
@@ -44,12 +45,10 @@ class UserCreateView(View):
     def get(self, request):
         context = {}
         context['form'] = UserRegistrationForm() # equivaut à context = {'form': UserLoginForm()}
-<<<<<<< HEAD
         return render(request, 'account/signin.html', context)
-=======
         return render(request, 'signup.html', context)
->>>>>>> julie
-#template_name=self.html_template
+        #template_name=self.html_template
+
     def post(self, request):
         context = {}
         context['form'] = UserRegistrationForm()
@@ -79,13 +78,11 @@ class UserCreateView(View):
             #user.groups.add(group)
             auth.login(request, user)
             return redirect('account:index')
-<<<<<<< HEAD
         return render(request, 'account/signin.html', context)
-    def createProfile(sender, **kwargs):
+    def createProfile(sender, request, **kwargs):
         print("hello")
-=======
+        context = {}
         return render(request, 'signup.html', context)
->>>>>>> julie
 
 
 
@@ -133,13 +130,12 @@ class UserLogoutView(View):
             return redirect('/')
         else:
             messages.error(request, "vous n'avez pas été déco")
-<<<<<<< HEAD
             return redirect('/')
 
 
 class ProfileUpdateView(UpdateView):
     model = Profile
-    form_class = ProfileUpdateForm
+    #form_class = ProfileUpdateForm
     template_name = "account/profile_update.html"
 
     def form_valid(self, form):
@@ -162,6 +158,3 @@ class ProfileListView(ListView):
 class ProfileRefreshListView(ListView):
     model = Profile
     template_name = "account/profile_list.html"
-=======
-            return redirect('/')
->>>>>>> julie
