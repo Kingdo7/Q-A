@@ -23,8 +23,8 @@
 
                     <div class="card-footer">
                         <a class="btn btn-danger" href="{% url 'account:profile-list' %}">Retour</a>
-                        {% if request.user == object.author %}
-                            <a class="btn btn-info" href="{% url 'account:profile-update' slug=object.slug %}">Edition</a>
+                        {% if request.user == object.user %}
+                            <a class="btn btn-info" href="{% url 'account:profile-update' pk=object.pk %}">Edition</a>
                         {% else %}
                             <a class="btn btn-secondary" href="">Edition</a>
                         {% endif %}
