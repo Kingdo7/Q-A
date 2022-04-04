@@ -36,8 +36,6 @@ from . import forms
 #            return redirect(setting.LOGIN_REDIRECT_URL)
 #
 #    return render(request, 'templates/signup.html', context = {'form' : form})
-class Index(TemplateView):
-    template_name = 'account/home.html'
 
 
 def FriendSetter(request, *args, **kwargs):
@@ -146,7 +144,7 @@ class UserLoginView(View):
                 #    print("caca")
                 #    return redirect('redacteur:redacteur-connect')
 
-                return redirect('account:index')
+                return redirect('forum:feed')
 
             else:
                 messages.error(request, "Vous n'avez pas pu être connecté")
