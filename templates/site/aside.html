@@ -1,25 +1,5 @@
 {% load static %}
-{% if request.user.is_authenticated %}
-    <h4>Mon profil</h4>
-        <div class="card">
-            {% if request.user.userprofile.image %}
-                <img class="card-img-top" src="{{ request.user.userprofile.image.url }}" alt="image">
-            {% else %}
-                <img class="card-img-top" src="https://cdn.icon-icons.com/icons2/510/PNG/512/person_icon-icons.com_50075.png" alt="image">
-            {% endif %}
 
-            <div class="card-body">
-              <h1 class=""><strong>{{ request.user.userprofile.user }}</strong></h1>
-              <h2> <strong>{{ request.user.userprofile.first_name }}</strong></h2>
-              <h2> <strong>{{ request.user.userprofile.last_name }}</strong></h2>
-
-              <div class="card-footer">
-                  <a class="btn btn-info" href="{% url 'account:profile-details' pk=request.user.userprofile.pk %}">Détails</a>
-              </div>
-            </div>
-
-        </div>
-    {% endif %}
 <aside>
   {% if request.user.is_authenticated %}
     <h4>Mon profil</h4>
