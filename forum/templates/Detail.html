@@ -6,12 +6,26 @@
 
 {% block content %}
 
-    <h2> Details des questions </h2>
-    <div
-    {% for data in dataset %}
-        {{ data.titre}}
-        {{ data.description }}
-    {% endfor %}
 
+    <div class="QuestionDetails" style="height:40vh; width:50%; margin-top: 25vh; margin-left : 40px;">
+        <h2> Details des questions </h2>
+        </br>
+        {% for data in query %}
+            <h4>{{ data.titre}}</h4> </br>
+            {{ data.question }} </br>
+            <small> {{data.author}} {{data.created}}</small>
+        {% endfor %}
+    </div>
+
+    <div class="Answer" style="height:50vh; width:60%; margin-top: 75vh; margin-right : 40px;">
+        <h5> Nouvelle réponse </h5>
+        <form action = "" method="POST">
+            {% csrf_token %}
+            {{ answer.as_p }}
+            <br>
+            <input type="submit" value = "Envoyer">
+            <a href = "{% url 'forum:details' data.id %}" >
+        </form>
+    </div>
 
 {% endblock %}
