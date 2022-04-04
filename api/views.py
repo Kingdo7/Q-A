@@ -105,8 +105,6 @@ class AnswerCreateAPI(CreateAPIView):
         serializer.save(author=self.request.user.userprofile)
 #validated  def create.
 
-
-
 class AnswerDetailAPI(RetrieveAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerModelSerializer
