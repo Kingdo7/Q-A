@@ -8,16 +8,14 @@
 
 <div style="height:50vh; width:75%; margin-top: 30vh; " class="row">
     <div class="col-8">
-        <div class="card">
+        <div class="card login_card">
             <div class="card-body">
                  <form method="post">
                     {% csrf_token %}
                      <!-- Crispy permet mettre en form le formulaire  -->
                      <!-- Identique mais pas même syntaxe{% crispy form%} -->
                     {{ form|crispy }}
-                     <button class="btn btn-success" type="submit">
-                         Se connecter
-                     </button>
+                     <button class="glow-on-hover blogin" type="submit">Se Connecter</button>
                 </form>
 
 
