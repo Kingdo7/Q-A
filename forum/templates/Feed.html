@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    <div class="container" >
+    <div class="container" style="height:50vh; width:75%; margin-top: 30vh; ">
             {% for data in dataset %}
                 <a href="{% url 'forum:details' data.id %}">
                     {% include 'question_affichage.html' %}

@@ -6,9 +6,10 @@
 
 {% block content %}
 
-    <h5> Nouvelle question </h5>
 
-    <div class ="Question">
+
+    <div class ="Question" style="height:50vh; width:75%; margin-top: 30vh;">
+        <h5> Nouvelle question </h5>
         <form action = "" method="POST">
             {% csrf_token %}
             {{ form.as_p }}

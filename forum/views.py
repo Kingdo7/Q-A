@@ -1,50 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from .forms import CreateQuestion
+from .forms import CreateQuestion, DetailsQuestion
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from .models import QuestionModel, Answer
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-
-# Create your views here.
-def Create(request):
-    html_template = "forum/templates/Question.html"
-    context = {}
-    form = CreateQuestion(request.POST or None)
-    if form.is_valid():
-        form.save()
-
-
-#class QuestionListView(ListView):
-#    model = Question
-#   template_name = "Feed.html"
-#   def get_context_data(self, **kwargs):
-#       context = super().get_context_data(**kwargs)
-#       context['Feed'] = Question.objects.all()
-#       return context
-
-#lass QuestionDetailView(DetailView):
-#   model = Question
-#   template_name = "Detail.html"
-
-#   def get_context_data(self, **kwargs):
-#       #pas comprendre la ligne suivante , juste copier coller.
-#       context = super().get_context_data(**kwargs)
-#       context['reponse'] = Answer.objects.filter(question__id=self.get_object().id)
-
-#        return context
-
-
-
-
+## Convention de nommage
 
 # Create your views here.
 def create(request):
     html_template = "Question.html"
     context = {}
-    obj = get_object_or_404(Question, id=id)
-    form = CreateQuestion(request.POST or None, instance=obj)
+    form = CreateQuestion(request.POST or None)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect("/")
@@ -63,18 +31,9 @@ def details(request, pk):
     html_template = "Detail.html"
     context = {}
     context['data'] = QuestionModel.objects.get(id=pk)
-    print(QuestionModel.objects.all())
+    context['query'] = QuestionModel.objects.filter(id=pk)
+    context['answer'] = DetailsQuestion(request.POST or None)
     return render(request, html_template, context)
-
-
-    def post(self, request, *args, **kwargs):
-        context = {}
-        form = Update(request.POST or None, id)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-        context['form'] = form
-        return render(request, self.html_template, context)
 
 
 #def Update(request, pk):
