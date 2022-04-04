@@ -178,7 +178,7 @@ class ProfileDetailsView(DetailView):
     model = Profile
     template_name = "account/profile_details.html"
 
-
+# sa créer une liste disponible sous la clé object_list deja de
 class ProfileListView(ListView):
     model = Profile
     template_name = "account/profile_list.html"
