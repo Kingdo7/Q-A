@@ -1,3 +1,4 @@
+from django.shortcuts import reverse
 from django.db import models
 
 # Create your models here.
@@ -24,7 +25,7 @@ class Profile(models.Model):
         return str(self.user) or ""
 
     def get_absolute_url(self):
-        return Profile('account:profile-list', kwargs={'slug': self.slug})
+        return reverse('account:profile-list')
 
     def get_follower_list_count(self):
         return len(self.follower.all())
@@ -50,7 +51,7 @@ class Friend(models.Model):
         return str(self.user) or ""
 
     def get_absolute_url(self):
-        return Profile('account:friend-detail', kwargs={'slug': self.slug})
+        return reverse('account:friend-detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if self.slug:
