@@ -5,37 +5,46 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<h1 class="profile_title">Liste des profiles</h1>
 
-    <div class="row m-5">
+
+    <div style="height:50vh; width:100%; margin-top: 30vh; " class="row dflexp">
+        {% if request.user == object.author %}
+            <a href="{% url 'account:profile-details' pk=user.pk %}" class="btn btn-primary">consulter</a>
+        {% endif %}
+
         {% for each in object_list %}
-        {% if each.user != request.user %}
+            {% if each.user != request.user %}
 
-            <div class="col-3 p-3">
 
-                <div class="card">
+            <div style="height:100%; width:30%;" class=" profile_list p-3">
 
-                      <div class="card-body">
 
-                            <h5 class="card-title">{{ each.user }}</h5>
-                            <a href="{% url 'account:profile-details' pk=each.pk %}" class="btn btn-primary">consulter</a>
-                            {% if request.user in each.follower.all %}
+                    <div class="card">
+                        {% if each.image %}
+                            <img class="card-img-top" src="{{ each.image.url }}" alt="image">
+                        {% else %}
+                            <img class="card-img-top" src="https://cdn.icon-icons.com/icons2/510/PNG/512/person_icon-icons.com_50075.png" alt="image">
+                        {% endif %}
 
-                          <a href="{% url 'account:follow-setter' pk=each.pk %}" class="btn btn-danger">Unfollow</a>
-                            {% else %}
+                        <div class="card-body">
 
-                                <a href="{% url 'account:follow-setter' pk=each.pk %}" class="btn btn-success">Follow</a>
-                            {% endif %}
-                          {% if request.user not in each.waitinglist.all %}
-                            <a href="{% url 'account:add-friend' pk=each.pk %}" class="btn btn-primary">Ajout en amis</a>
-                          {% else %}
-                          <a href="{% url 'account:remove-friend' pk=each.pk %}" class="btn btn-primary">Supprimer des amis</a>
-                            {% endif %}
-                      </div>
+                                <h5 class="card-title">{{ each.user }}</h5>
+                                <a href="{% url 'account:profile-details' pk=each.pk %}" class="btn btn-primary">consulter</a>
+                                {% if request.user in each.follower.all %}
+                                    <a href="{% url 'account:follow-setter' pk=each.pk %}" class="btn btn-danger">Unfollow</a>
+                                {% else %}
+                                    <a href="{% url 'account:follow-setter' pk=each.pk %}" class="btn btn-success">Follow</a>
+                                {% endif %}
+                                <a href="{% url 'account:add-friend' pk=each.pk %}" class="btn btn-primary">Ajout en amis</a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
-        {% endif %}
+            {% endif %}
         {% endfor %}
 
     </div>

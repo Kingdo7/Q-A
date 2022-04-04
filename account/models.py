@@ -19,6 +19,8 @@ class Profile(models.Model):
     follower = models.ManyToManyField(User, related_name="follower")
     waitinglist = models.ManyToManyField(User, related_name="waitinglist")
     slug = models.SlugField(null=True, blank=True)
+    image = models.ImageField(upload_to='static/images/profile', blank=True, null=True)
+
 
     def __str__(self):
         return str(self.user) or ""
@@ -62,4 +64,3 @@ class Friend(models.Model):
         else:
             self.slug = slugify(str(self.profile) + get_random_string(9))
             super(Friend, self).save(*args, **kwargs)
-

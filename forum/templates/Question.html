@@ -1,0 +1,21 @@
+{% extends "site/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+    <h5> Nouvelle question </h5>
+
+    <div class ="Question">
+        <form action = "" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <input type="submit" value = "Envoyer">
+            <a href = "{% url 'forum:feed' %}" >
+        </form>
+    </div>
+
+{% endblock %}

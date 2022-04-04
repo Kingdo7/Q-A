@@ -1,0 +1,19 @@
+{% extends "site/base.html" %}
+
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container" >
+            {% for data in dataset %}
+                <a href="{% url 'forum:details' data.id %}">
+                    {% include 'question_affichage.html' %}
+                </a>
+            {% endfor %}
+    </div>
+
+{% endblock %}

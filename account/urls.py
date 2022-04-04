@@ -15,8 +15,11 @@ from .views import (
     AddFriendRelationship,
     RemoveFriendRelationship,
 
+<<<<<<< HEAD
     AcceptedButton,
 
+=======
+>>>>>>> origin/master
 
 )
 
@@ -26,7 +29,9 @@ app_name = 'account'
 urlpatterns = [
     path('add-friend/<int:pk>/', AddFriendRelationship, name = "add-friend"),
     path('remove-friend/<int:pk>/', RemoveFriendRelationship, name = "remove-friend"),
+
     path('accept-friend/<str:slug>', AcceptedButton, name = "accept-friend"),
+
 
     path('follow-setter/<int:pk>/', FollowSetter, name = "follow-setter"),
     path('auth/profile/<int:pk>/update/', ProfileUpdateView.as_view(), name = "profile-update"),
