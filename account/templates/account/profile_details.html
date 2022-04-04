@@ -20,7 +20,6 @@
                     <h2 style="color: black;"> <strong>{{ object.first_name }}</strong></h2>
                     <h2 style="color: black;"> <strong>{{ object.last_name }}</strong></h2>
                     <p style="color: black;" >{{ object.bio }}</p>
-
                     <div class="card-footer">
                         <a class="btn btn-danger" href="{% url 'account:profile-list' %}">Retour</a>
                         {% if request.user == object.user %}
@@ -30,9 +29,22 @@
                         {% endif %}
                     </div>
             </div>
-
+            <div>
+                {% for each in request.Question %}
+                    {% if object.username == each.author %}
+                        <p>Ici devrait avoir la liste des questions poser par l'utilisateur, si il est l'auteur est connecter.
+                            Mais je n'ai pas la liste des questions fonctionnelle.
+                            Mais le code serais :
+                            "<p>{{ each.titre }}</p>"
+                        </p>
+                    {% else %}
+                    <p>Pas encoure de question, tous va bien !</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
 
+        
     </div>
 </div>
 
