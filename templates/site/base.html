@@ -12,19 +12,7 @@
 <body>
 
     {% include "site/navbar.html" %}
-    <div class="main">
-
-            {% include "site/sidebar.html" %}
-
-            {% block content %}
-            {% endblock content %}
-
-            {% include "site/aside.html" %}
-
-    </div>
-        {% include "site/footer.html" %}
-
-    <div class=" pt-5">
+        <div class=" pt-5">
 
         {% if messages %}
             {% for message in messages %}
@@ -37,17 +25,16 @@
             {% endfor %}
         {% endif %}
     </div>
-       <!-- <div class="row">
-            <div class="col-10">
-
-            </div>
-            <div class="col-2">
-
-            </div>
-        </div>
-    </div> -->
+    <div class="main">
+            {% include "site/sidebar.html" %}
+            {% block content %}
+            {% endblock content %}
+            {% include "site/aside.html" %}
+    </div>
 
 
+
+        {% include "site/footer.html" %}
 </body>
 <script>
 

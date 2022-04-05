@@ -24,8 +24,7 @@ from .views import (
 #    QuestionListVoteAPI,
 #AnswerListVoteAPI,
 #    QuestionCreateVoteAPI,
-from rest_framework import routers
-router = routers.DefaultRouter()
+
 
 
 app_name = 'api'
@@ -40,6 +39,23 @@ urlpatterns = [
     #path('auth/login/', Signup.as_view(), name="signup"),
     path('questions/', QuestionListAPI.as_view(), name="question-list"),
     #Ajoute un nouvel enregistrement Question et l'associer à l'utilisateur
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     path('questions/create/', QuestionCreateAPI.as_view(), name="question-create"),
     path('questions/<int:pk>/', QuestionDetailAPI.as_view(), name="question-get"),
     path('questions/<int:pk>/update/', QuestionUpdateAPI.as_view(), name="question-update"),

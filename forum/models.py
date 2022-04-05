@@ -33,28 +33,23 @@ class Tag(models.Model):
 
 
 class Question(models.Model):
-
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteur')
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
     #profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='auteur')
     #tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
-
     date_creation = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=150)
     content = models.CharField(max_length=15000)
-    #visit_counter = models.PositiveIntegerField(default=0)
-    #liked = models.ManyToManyField(User)
     slug = models.SlugField(null=True, blank=True)
     votelist = models.ManyToManyField(Profile, blank=True, related_name="votequestionlist")
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['updated', 'created']
 
     def __str__(self):
         return str(self.title) or ""
-
-
-    #def get_absolute_url(self):
-    #    return reverse('account:account-detail',
-    #                   kwargs={'pk': self.pk}
-    #                   )
 
     def get_absolute_url(self):
         return reverse('question:question-detail', kwargs={'slug': self.slug})
@@ -99,6 +94,8 @@ class Answer(models.Model):
     slug = models.SlugField(null=True, blank=True)
     votelist = models.ManyToManyField(Profile, blank=True, related_name="voteanswerslist")
 
+
+
     def __str__(self):
         return str(self.author) or ""
 
@@ -128,9 +125,9 @@ class QuestionModel(models.Model):
     #tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=True, related_name="questiontag")
     #visit_counter = models.PositiveIntegerField(default=0)
     #liked = models.ManyToManyField(User)
-    
+
     class Meta :
         ordering = ['updated', 'created']
-        
+
     def __str__(self):
         return self.titre

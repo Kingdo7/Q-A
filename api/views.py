@@ -5,6 +5,8 @@ from rest_framework import status
 
 
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import  TagModelSerializer, QuestionModelSerializer, AnswerModelSerializer, AddVoteQuestionSerialiser, AddVoteAnswerSerialiser, QuestionListVoteSerialiser, AnswerListVoteSerialiser, ProfileModelSerializer
@@ -60,6 +62,14 @@ class QuestionListAPI(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionModelSerializer
 
+
+
+
+
+
+
+
+
 # Enelver le null dans models pour question. Ca va faire un problme not nullc onstraint mais c'ets normal car il faut récupérer via token, l'id de user et faire l'ajout quand une quesiton est crée.
 class QuestionCreateAPI(CreateAPIView):
     queryset = Question.objects.all()
@@ -67,6 +77,10 @@ class QuestionCreateAPI(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(profile=self.request.user.objects.all())
+
+
+
+
 
 # A Faire et modifier pour la prochaine fois
 class QuestionDetailAPI(RetrieveAPIView):
