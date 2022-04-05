@@ -3,7 +3,6 @@ from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
 from .views import (
-    HelloView,
     QuestionListAPI,
     QuestionDetailAPI,
     QuestionCreateAPI,
@@ -18,12 +17,11 @@ from .views import (
     ProfileListAPI,
     ProfileDetailAPI,
     ProfileUpdateAPI,
-    #ProfileDetailConnected,
+    ProfileDetailConnected,
+
 
 )
-#    QuestionListVoteAPI,
-#AnswerListVoteAPI,
-#    QuestionCreateVoteAPI,
+
 
 
 
@@ -34,28 +32,8 @@ urlpatterns = [
 
 
 
-    #Obtenir toute la liste des questions
-    path('hello/', HelloView.as_view(), name='hello'),
-    #path('auth/login/', Signup.as_view(), name="signup"),
     path('questions/', QuestionListAPI.as_view(), name="question-list"),
     #Ajoute un nouvel enregistrement Question et l'associer à l'utilisateur
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     path('questions/create/', QuestionCreateAPI.as_view(), name="question-create"),
     path('questions/<int:pk>/', QuestionDetailAPI.as_view(), name="question-get"),
     path('questions/<int:pk>/update/', QuestionUpdateAPI.as_view(), name="question-update"),
@@ -76,7 +54,7 @@ urlpatterns = [
     path('profiles/', ProfileListAPI.as_view(), name="profile-list"),
     path('profiles/<int:pk>/', ProfileDetailAPI.as_view(), name="profile-get"),
     path('profiles/<int:pk>/update/', ProfileUpdateAPI.as_view(), name="profile-update"),
-    #path('me/', ProfileDetailConnected.as_view(), name="profile-connected"),
+    path('me/', ProfileDetailConnected.as_view(), name="profile-connected"),
 
 
 
